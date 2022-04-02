@@ -60,6 +60,9 @@ QString* Window::generatePassword(int length){
                  (random > 90 && random < 97) ||
                  (random > 122)){
             continue;
+        }else if(this->mOptionExcludeAmbiguous->checkState() == Qt::Checked &&
+                 this->isAmbiguousChar(random)){
+            continue;
         }
         password->append((char)random);
     }
@@ -144,6 +147,32 @@ void Window::initPasswordLengthLayout(QHBoxLayout *mainLayout){
 
     QObject::connect(this->mPasswordLengthField, SIGNAL(textChanged(QString)),
                      this, SLOT(setPasswordLengthSlider(QString)));
+}
+
+bool Window::isAmbiguousChar(int charCode){
+    switch (charCode){
+    case (int)'{':
+    case (int)'}':
+    case (int)'[':
+    case (int)']':
+    case (int)'(':
+    case (int)')':
+    case (int)'/':
+    case (int)'\\':
+    case (int)'\'':
+    case (int)'"':
+    case (int)'`':
+    case (int)'~':
+    case (int)',':
+    case (int)';':
+    case (int)':':
+    case (int)'.':
+    case (int)'<':
+    case (int)'>':
+        return true;
+    default:
+        return false;
+    }
 }
 
 void Window::setPasswordLength(int length){

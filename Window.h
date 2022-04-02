@@ -38,6 +38,8 @@ private:
     void initOptionsLayout(QHBoxLayout *mainLayout);
     void initPasswordLengthLayout(QHBoxLayout *mainLayout);
 
+    bool isAmbiguousChar(int charCode);
+
     QSlider *mPasswordLengthSlider;
     QLineEdit *mPasswordLengthField;
 
